@@ -1,5 +1,17 @@
 console.log('%c;)', 'font-size: 50px;');
 
+console.log('%c                   ___           ___           ___           ___           ___           ___     ', 'color: #ff0000; font-size: 15px;');
+console.log('%c       ___        /\\  \\         /\\  \\         /\\  \\         /\\__\\         /\\  \\         /\\  \\    ', 'color: #ff3b00; font-size: 15px;');
+console.log('%c      /\\  \\      /::\\  \\       /::\\  \\        \\:\\  \\       /:/  /        /::\\  \\       /::\\  \\   ', 'color: #ff7800; font-size: 15px;');
+console.log('%c      \\:\\  \\    /:/\\:\\  \\     /:/\\:\\  \\        \\:\\  \\     /:/__/        /:/\\:\\  \\     /:/\\:\\  \\  ', 'color: #FD7B00; font-size: 15px;');
+console.log('%c      /::\\__\\  /:/  \\:\\  \\   /::\\~\\:\\  \\       /::\\  \\   /::\\  \\ ___   /::\\~\\:\\  \\   /::\\~\\:\\  \\ ', 'color: #FEDA00; font-size: 15px;');
+console.log('%c   __/:/\\/__/ /:/__/ \\:\\__\\ /:/\\:\\ \\:\\__\\     /:/\\:\\__\\ /:/\\:\\  /\\__\\ /:/\\:\\ \\:\\__\\ /:/\\:\\ \\:\\__\\', 'color: #D0FD00; font-size: 15px;');
+console.log('%c  /\\/:/  /    \\:\\  \\  \\/__/ \\/__\\:\\/:/  /    /:/  \\/__/ \\/__\\:\\/:/  / \\:\\~\\:\\ \\/__/ \\/_|::\\/:/  /', 'color: #80FF00; font-size: 15px;');
+console.log('%c  \\::/__/      \\:\\  \\            \\::/  /    /:/  /           \\::/  /   \\:\\ \\:\\__\\      |:|::/  / ', 'color: #1AFF00; font-size: 15px;');
+console.log('%c   \\:\\__\\       \\:\\  \\           /:/  /     \\/__/            /:/  /     \\:\\ \\/__/      |:|\\/__/  ', 'color: #00FF3B; font-size: 15px;');
+console.log('%c    \\/__/        \\:\\__\\         /:/  /                      /:/  /       \\:\\__\\        |:|  |    ', 'color: #00FFB1; font-size: 15px;');
+console.log('%c                  \\/__/         \\/__/                       \\/__/         \\/__/         \\|__|    ', 'color: #00E0F9; font-size: 15px;');
+
 document.addEventListener('contextmenu', function (event) {
     event.preventDefault();
 });
