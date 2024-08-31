@@ -46,6 +46,8 @@
 
 /*非常吃性能,低配手机会卡顿*/
 /*卡片模糊背景＋黑色透明卡片+白色svg**/
+
+/*
 html {
     --name: 主题1;
     --main_bg_color: url(../img/background.jpg);
@@ -64,10 +66,14 @@ html {
     --back_filter_color: #00000030;
      --fill:#ffffff;
 }
+*/
 
+
+
+/*图片模糊背景＋白色透明卡片+黑色svg*/
+
+/*
 html {
-
-    /*图片模糊背景＋白色透明卡片+黑色svg*/
     --name: 主题2;
     --main_bg_color: url(../img/background.jpg);
     --main_text_color: #000000;
@@ -85,10 +91,14 @@ html {
     --back_filter_color: #00000030;
      --fill:#000000;
 }
+*/
 
+
+
+/*蓝色渐变+黑色svg**/
+
+/*
 html {
-    /*蓝色渐变+黑色svg**/
-
     --name: 主题3;
     --main_bg_color: linear-gradient(50deg, #a2d1ff, #ffffff);
     --main_text_color: #000000;
@@ -106,11 +116,14 @@ html {
     --back_filter_color: #00000000;
      --fill:#000000;
 }
+*/
 
 
 
+/*白色简约+黑色svg**/
+
+/*
 html {
-    /*白色简约+黑色svg**/
     --name: 主题4;
     --main_bg_color: #ffffff;
     --main_text_color: #000000;
@@ -128,9 +141,14 @@ html {
     --back_filter_color: #00000000;
      --fill:#000000;
 }
+*/
 
+
+
+/*图片模糊背景＋黑色透明卡片+白色svg**/
+
+/**/
 html {
-    /*图片模糊背景＋黑色透明卡片+白色svg**/
     --name: 主题5;
     --main_bg_color: url(../img/background.jpg);
     --main_text_color: #eeeeee;
@@ -144,7 +162,8 @@ html {
     --footer_text_color: #ffffff;
     --left_tag_item: rgb(27 42 57 / 20%);
     --card_filter: 0px;
-    --back_filter: 19px;
+    --back_filter: 0px;
     --back_filter_color: #00000030;
     --fill:#ffffff;
 }
+/**/
