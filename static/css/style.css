@@ -457,6 +457,7 @@ body {
     background: var(--item_hover_color);
 }
 
+/*
 .tanChiShe {
     width: 85%;
 }
@@ -466,6 +467,7 @@ body {
     height: 100%;
     object-fit: cover;
 }
+*/
 
 .title {
     display: flex;
@@ -674,9 +676,11 @@ footer {
         width: 100%;
     }
 
+    /*
     .tanChiShe {
         width: 100%;
     }
+    */
 
     .description {
         font-size: 4vw;
