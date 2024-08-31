@@ -113,7 +113,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var html = document.querySelector('html');
     var themeState = getCookie("themeState") || "Light";
+    /*
     var tanChiShe = document.getElementById("tanChiShe");
+    */
 
 
 
@@ -121,7 +123,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function changeTheme(theme) {
+        /*
         tanChiShe.src = "./static/svg/snake-" + theme + ".svg";
+        */
         html.dataset.theme = theme;
         setCookie("themeState", theme, 365);
         themeState = theme;
