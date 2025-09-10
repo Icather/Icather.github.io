@@ -1,16 +1,4 @@
-console.log('%c;)', 'font-size: 50px;');
-
-console.log('%c                   ___           ___           ___           ___           ___           ___     ', 'color: #ff0000; font-size: 15px;');
-console.log('%c       ___        /\\  \\         /\\  \\         /\\  \\         /\\__\\         /\\  \\         /\\  \\    ', 'color: #ff3b00; font-size: 15px;');
-console.log('%c      /\\  \\      /::\\  \\       /::\\  \\        \\:\\  \\       /:/  /        /::\\  \\       /::\\  \\   ', 'color: #ff7800; font-size: 15px;');
-console.log('%c      \\:\\  \\    /:/\\:\\  \\     /:/\\:\\  \\        \\:\\  \\     /:/__/        /:/\\:\\  \\     /:/\\:\\  \\  ', 'color: #FD7B00; font-size: 15px;');
-console.log('%c      /::\\__\\  /:/  \\:\\  \\   /::\\~\\:\\  \\       /::\\  \\   /::\\  \\ ___   /::\\~\\:\\  \\   /::\\~\\:\\  \\ ', 'color: #FEDA00; font-size: 15px;');
-console.log('%c   __/:/\\/__/ /:/__/ \\:\\__\\ /:/\\:\\ \\:\\__\\     /:/\\:\\__\\ /:/\\:\\  /\\__\\ /:/\\:\\ \\:\\__\\ /:/\\:\\ \\:\\__\\', 'color: #D0FD00; font-size: 15px;');
-console.log('%c  /\\/:/  /    \\:\\  \\  \\/__/ \\/__\\:\\/:/  /    /:/  \\/__/ \\/__\\:\\/:/  / \\:\\~\\:\\ \\/__/ \\/_|::\\/:/  /', 'color: #80FF00; font-size: 15px;');
-console.log('%c  \\::/__/      \\:\\  \\            \\::/  /    /:/  /           \\::/  /   \\:\\ \\:\\__\\      |:|::/  / ', 'color: #1AFF00; font-size: 15px;');
-console.log('%c   \\:\\__\\       \\:\\  \\           /:/  /     \\/__/            /:/  /     \\:\\ \\/__/      |:|\\/__/  ', 'color: #00FF3B; font-size: 15px;');
-console.log('%c    \\/__/        \\:\\__\\         /:/  /                      /:/  /       \\:\\__\\        |:|  |    ', 'color: #00FFB1; font-size: 15px;');
-console.log('%c                  \\/__/         \\/__/                       \\/__/         \\/__/         \\|__|    ', 'color: #00E0F9; font-size: 15px;');
+// 优化后的JavaScript代码，减少移动端性能消耗
 
 document.addEventListener('contextmenu', function (event) {
     event.preventDefault();
@@ -91,51 +79,15 @@ function getCookie(name) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 document.addEventListener('DOMContentLoaded', function () {
-
-
-
-
-
-
     var html = document.querySelector('html');
     var themeState = getCookie("themeState") || "Light";
-    /*
-    var tanChiShe = document.getElementById("tanChiShe");
-    */
-
-
-
-
-
 
     function changeTheme(theme) {
-        /*
-        tanChiShe.src = "./static/svg/snake-" + theme + ".svg";
-        */
         html.dataset.theme = theme;
         setCookie("themeState", theme, 365);
         themeState = theme;
     }
-
-
-
-
-
-
 
     var Checkbox = document.getElementById('myonoffswitch')
     Checkbox.addEventListener('change', function () {
@@ -148,82 +100,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-
-
     if (themeState == "Dark") {
         Checkbox.checked = false;
     }
 
     changeTheme(themeState);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
-
-    var fpsElement = document.createElement('div');
-    fpsElement.id = 'fps';
-    fpsElement.style.zIndex = '10000';
-    fpsElement.style.position = 'fixed';
-    fpsElement.style.left = '0';
-    document.body.insertBefore(fpsElement, document.body.firstChild);
-
-    var showFPS = (function () {
-        var requestAnimationFrame = window.requestAnimationFrame ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame ||
-            window.oRequestAnimationFrame ||
-            window.msRequestAnimationFrame ||
-            function (callback) {
-                window.setTimeout(callback, 1000 / 60);
-            };
-
-        var fps = 0,
-            last = Date.now(),
-            offset, step, appendFps;
-
-        step = function () {
-            offset = Date.now() - last;
-            fps += 1;
-
-            if (offset >= 1000) {
-                last += offset;
-                appendFps(fps);
-                fps = 0;
-            }
-
-            requestAnimationFrame(step);
-        };
-
-        appendFps = function (fpsValue) {
-            fpsElement.textContent = 'FPS: ' + fpsValue;
-        };
-
-        step();
-    })();
-    
-    
-    
-    //pop('./static/img/tz.jpg')
-    
-    
-    
 });
-
-
 
 
 var pageLoading = document.querySelector("#zyyo-loading");
