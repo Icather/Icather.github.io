@@ -1,23 +1,17 @@
 @font-face {
-    font-family: "a";
-    /*中文字体*/
-    src: url();
-    font-display: swap;
-}
-
-
-@font-face {
     font-family: "b";
-
     src: url(../fonts/Ubuntu-Regular.ttf);
     font-display: swap;
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
     font-family: "title";
-    /*英文字体*/
     src: url(../fonts/Pacifico-Regular.ttf);
     font-display: swap;
+    font-weight: normal;
+    font-style: normal;
 }
 
 * {
@@ -59,7 +53,6 @@ a:focus {
 
 
 html[data-theme="Dark"] {
-    
     --main_text_color: #fff;
     --gradient:linear-gradient(120deg, rgb(133, 62, 255), #f76cc6 30%, rgb(255, 255, 255) 60%);
     --purple_text_color: #747bff;
@@ -95,6 +88,27 @@ body {
     transition: color 0.1s ease;
     color: var(--main_text_color);
 
+}
+
+/* 移动端性能优化 */
+@media (max-width: 800px) {
+    body {
+        background-attachment: scroll;
+    }
+    
+    .left-div,
+    .iconItem,
+    .switch,
+    .projectItem,
+    footer {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+    
+    .tc {
+        backdrop-filter: blur(5px) !important;
+        -webkit-backdrop-filter: blur(5px) !important;
+    }
 }
 
 #zyyo-loading {
@@ -498,25 +512,11 @@ body {
     background-color: var(--item_bg_color);
     border-radius: 8px;
     padding: 15px;
-    height: 95px;
-    width: calc(25% - 15px);
-    backdrop-filter: blur(var(--card_filter));-webkit-backdrop-filter: blur(var(--card_filter));
-    -webkit-backdrop-filter: blur(var(--card_filter));-webkit-backdrop-filter: blur(var(--card_filter));
-    transition: opacity 0.3s ease, background-color 0.3s ease, border 0.3s ease, transform 0.2s ease;
-
-
-}
-
-.projectItem {
-    display: flex;
-    background-color: var(--item_bg_color);
-    border-radius: 8px;
-    padding: 15px;
     height: 100px;
     width: calc(25% - 15px);
-    backdrop-filter: blur(var(--card_filter));-webkit-backdrop-filter: blur(var(--card_filter));
+    backdrop-filter: blur(var(--card_filter));
+    -webkit-backdrop-filter: blur(var(--card_filter));
     transition: opacity 0.5s ease, background-color 0.2s ease, border 0.2s ease, transform 0.3s ease;
-
 }
 
 

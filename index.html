@@ -7,13 +7,17 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>
 		Icather </title>
-	<link rel="icon" href="./static/img/logo.jpg">
+	<link rel="icon" href="./static/img/logo.jpg" type="image/jpeg">
 	<meta name="author" content="Icather">
 	<meta name="description" content="某不知名高中生的个人网站">
 	<meta name="keywords" content="Icather,icather,一氯氢化物,一氯氢化物主页">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<link rel="stylesheet" href="./static/css/style.css">
+	<!-- 关键CSS优先加载 -->
 	<link rel="stylesheet" href="./static/css/root.css">
+	<link rel="stylesheet" href="./static/css/style.css">
+	<!-- 预加载关键字体 -->
+	<link rel="preload" href="./static/fonts/Ubuntu-Regular.ttf" as="font" type="font/ttf" crossorigin>
+	<link rel="preload" href="./static/fonts/Pacifico-Regular.ttf" as="font" type="font/ttf" crossorigin>
 
 </head>
 
@@ -27,7 +31,7 @@
 	<div class="zyyo-main">
 		<div class="zyyo-left">
 			<div class="logo" style="background-image: url(./static/img/logo.jpg);">
-			</div>
+		</div>
 			<div class="left-div left-des">
 				<div class="left-des-item"><svg t="1705773709627" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1478"><path d="M512 249.976471c-99.388235 0-180.705882 81.317647-180.705882 180.705882s81.317647 180.705882 180.705882 180.705882 180.705882-81.317647 180.705882-180.705882-81.317647-180.705882-180.705882-180.705882z m0 301.17647c-66.258824 0-120.470588-54.211765-120.470588-120.470588s54.211765-120.470588 120.470588-120.470588 120.470588 54.211765 120.470588 120.470588-54.211765 120.470588-120.470588 120.470588z" p-id="1479"></path><path d="M512 39.152941c-216.847059 0-391.529412 174.682353-391.529412 391.529412 0 349.364706 391.529412 572.235294 391.529412 572.235294s391.529412-222.870588 391.529412-572.235294c0-216.847059-174.682353-391.529412-391.529412-391.529412z m0 891.482353C424.658824 873.411765 180.705882 686.682353 180.705882 430.682353c0-183.717647 147.576471-331.294118 331.294118-331.294118s331.294118 147.576471 331.294118 331.294118c0 256-243.952941 442.729412-331.294118 499.952941z" p-id="1480"></path></svg>China-Shanghai
 				</div>
@@ -64,7 +68,7 @@
 		<div class="zyyo-right">
 			<header>
 				<div class="index-logo" style="background-image: url(./static/img/logo.jpg);">
-				</div>
+			</div>
 				<div class="welcome">
 					Hello I' m <span class="gradientText">
 						Icather </span>
@@ -141,7 +145,7 @@
 							<p>啥也没有</p>
 						</div>
 						<div class="projectItemRight">
-							<img src="./static/img/bilibili.ico" alt="">
+							<img src="./static/img/bilibili.ico" alt="B站" loading="lazy">
 						</div>
 					</a>
 
@@ -151,7 +155,7 @@
 							<p>啥也没有</p>
 						</div>
 						<div class="projectItemRight">
-							<img src="./static/img/douyin.png" alt="">
+							<img src="./static/img/douyin.png" alt="抖音" loading="lazy">
 						</div>
 					</a>
 
@@ -169,7 +173,7 @@
 							<p>……</p>
 						</div>
 						<div class="projectItemRight">
-							<img src="./static/img/logo.jpg" alt="">
+							<img src="./static/img/logo.jpg" alt="项目" loading="lazy">
 						</div>
 					</a>
 
