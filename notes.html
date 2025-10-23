@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html class="zyyo.net" lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Notes</title>
+  <link rel="icon" href="./static/img/logo.jpg" type="image/jpeg" />
+  <link rel="stylesheet" href="./static/css/root.css" />
+  <!-- GitHub 风格 Markdown -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown.min.css">
+  <style>
+    body { background: var(--main_bg_color); }
+    .page-header {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:16px 20px; color: var(--main_text_color);
+    }
+    .back-link { color: var(--purple_text_color); font-weight:600; }
+    .container {
+      max-width: 960px; margin: 0 auto; padding: 10px 20px 40px;
+    }
+    .markdown-body {
+      box-sizing: border-box;
+      min-width: 200px; max-width: 100%;
+      padding: 24px; border-radius: 12px;
+      background: var(--item_bg_color);
+      border: 1px solid rgba(255,255,255,0.6);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+    }
+    @media (max-width: 800px) { .markdown-body { padding: 18px; } }
+  </style>
+</head>
+<body>
+  <div class="page-header">
+    <div class="logo" style="width:40px;height:40px;border-radius:50%;background-size:cover;background-image:url('./static/img/logo.jpg');border:1px solid rgba(255,255,255,0.7);"></div>
+    <a class="back-link" href="./index.html">← 返回首页</a>
+  </div>
+  <div class="container">
+    <article id="md" class="markdown-body">加载中…</article>
+  </div>
+
+  <!-- Marked.js 渲染 Markdown -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    function getQueryParam(name) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name);
+    }
+    const map = {
+      'note-1': './static/md/note-1.md',
+      'note-2': './static/md/note-2.md'
+    };
+    const docKey = getQueryParam('doc');
+    const mdPath = map[docKey] || map['note-1'];
+
+    fetch(mdPath)
+      .then(res => {
+        if (!res.ok) throw new Error('无法加载内容: ' + res.status);
+        return res.text();
+      })
+      .then(text => {
+        document.getElementById('md').innerHTML = marked.parse(text);
+      })
+      .catch(err => {
+        document.getElementById('md').innerHTML = '<p>抱歉，内容加载失败。</p><pre>' + err.message + '</pre>';
+      });
+  </script>
+</body>
+</html>

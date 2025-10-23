@@ -1,5 +1,15 @@
 // 优化后的JavaScript代码，减少移动端性能消耗
 
+var CONTENT_TOGGLE = {
+    // 总开关：控制整块显示/隐藏
+    showSites: true,
+    showNotes: true,
+    // 细粒度：按选择器隐藏具体卡片
+    hideSelectors: [
+        'a.projectItem[href*="doc=note-2"]' // 隐藏“学习笔记二”
+    ]
+};
+
 document.addEventListener('contextmenu', function (event) {
     event.preventDefault();
 });
@@ -105,6 +115,29 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     changeTheme(themeState);
+
+    // 应用内容显示/隐藏的开关
+    (function applyContentToggle(){
+        // 整块隐藏：sites
+        if (!CONTENT_TOGGLE.showSites) {
+            var sTitle = document.getElementById('title-sites');
+            var sList = document.getElementById('section-sites');
+            if (sTitle) sTitle.style.display = 'none';
+            if (sList) sList.style.display = 'none';
+        }
+        // 整块隐藏：notes
+        if (!CONTENT_TOGGLE.showNotes) {
+            var nTitle = document.getElementById('title-notes');
+            var nList = document.getElementById('section-notes');
+            if (nTitle) nTitle.style.display = 'none';
+            if (nList) nList.style.display = 'none';
+        }
+        // 隐藏指定项
+        CONTENT_TOGGLE.hideSelectors.forEach(function(sel){
+            var nodes = document.querySelectorAll(sel);
+            nodes.forEach(function(node){ node.style.display = 'none'; });
+        });
+    })();
 });
 
 
