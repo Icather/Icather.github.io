@@ -1,38 +1,67 @@
 <!DOCTYPE html>
-<html class="zyyo.net" lang="zh-CN">
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Notes</title>
+  <title>文章 - 一氯氢化物的博客</title>
   <link rel="icon" href="./static/img/logo.jpg" type="image/jpeg" />
   <link rel="stylesheet" href="./static/css/root.css" />
   <!-- GitHub 风格 Markdown -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown.min.css">
   <style>
-    body { background: var(--main_bg_color); }
+    body { background: var(--main_bg_color); color: var(--main_text_color); font-family: sans-serif; }
     .page-header {
       display:flex; align-items:center; justify-content:space-between;
       padding:16px 20px; color: var(--main_text_color);
+      max-width: 960px; margin: 0 auto;
     }
-    .back-link { color: var(--purple_text_color); font-weight:600; }
+    .back-link {
+      color: var(--purple_text_color); font-weight:600;
+      text-decoration: none; border-radius: 8px;
+      padding: 6px 14px; transition: background 0.2s;
+    }
+    .back-link:hover { background: var(--nav_tab_hover, rgba(0,0,0,0.04)); }
     .container {
       max-width: 960px; margin: 0 auto; padding: 10px 20px 40px;
     }
     .markdown-body {
       box-sizing: border-box;
       min-width: 200px; max-width: 100%;
-      padding: 24px; border-radius: 12px;
+      padding: 24px; border-radius: 14px;
       background: var(--item_bg_color);
       border: 1px solid rgba(255,255,255,0.6);
       box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+      color: var(--main_text_color);
+    }
+    .markdown-body h1, .markdown-body h2, .markdown-body h3,
+    .markdown-body h4, .markdown-body h5, .markdown-body h6 {
+      color: var(--main_text_color);
+      border-bottom-color: var(--divider_color, rgba(0,0,0,0.08));
+    }
+    .markdown-body code {
+      background: var(--nav_tab_active_bg, rgba(0,0,0,0.06));
+      border-radius: 6px; padding: 2px 6px;
+    }
+    .markdown-body pre {
+      background: var(--nav_tab_active_bg, rgba(0,0,0,0.06));
+      border-radius: 10px;
+    }
+    .file-badge {
+      display: inline-block; font-size: 12px; padding: 2px 10px;
+      border-radius: 6px; opacity: 0.6;
+      background: var(--nav_tab_active_bg, rgba(0,0,0,0.06));
+      margin-left: 10px; vertical-align: middle;
     }
     @media (max-width: 800px) { .markdown-body { padding: 18px; } }
   </style>
 </head>
 <body>
   <div class="page-header">
-    <div class="logo" style="width:40px;height:40px;border-radius:50%;background-size:cover;background-image:url('./static/img/logo.jpg');border:1px solid rgba(255,255,255,0.7);"></div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="width:36px;height:36px;border-radius:50%;background-size:cover;background-image:url('./static/img/logo.jpg');border:1px solid rgba(255,255,255,0.7);flex-shrink:0;"></div>
+      <span id="file-info" class="file-badge"></span>
+    </div>
     <a class="back-link" href="./index.html">← 返回首页</a>
   </div>
   <div class="container">
@@ -42,28 +71,86 @@
   <!-- Marked.js 渲染 Markdown -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
-    function getQueryParam(name) {
-      const params = new URLSearchParams(window.location.search);
-      return params.get(name);
-    }
-    const map = {
-      'note-1': './static/md/note-1.md',
-      'note-2': './static/md/note-2.md'
-    };
-    const docKey = getQueryParam('doc');
-    const mdPath = map[docKey] || map['note-1'];
+    (function() {
+      function getQueryParam(name) {
+        var params = new URLSearchParams(window.location.search);
+        return params.get(name);
+      }
 
-    fetch(mdPath)
-      .then(res => {
-        if (!res.ok) throw new Error('无法加载内容: ' + res.status);
-        return res.text();
-      })
-      .then(text => {
-        document.getElementById('md').innerHTML = marked.parse(text);
-      })
-      .catch(err => {
-        document.getElementById('md').innerHTML = '<p>抱歉，内容加载失败。</p><pre>' + err.message + '</pre>';
-      });
+      // 获取文件名：支持 ?file=xxx.md 或旧的 ?doc=note-1 方式（向后兼容）
+      var fileName = getQueryParam('file');
+      var docKey = getQueryParam('doc');
+
+      // 旧方式兼容映射
+      var legacyMap = {
+        'note-1': 'note-1.md',
+        'note-2': 'note-2.md'
+      };
+
+      if (!fileName && docKey) {
+        fileName = legacyMap[docKey] || null;
+      }
+
+      if (!fileName) {
+        document.getElementById('md').innerHTML = '<p>未指定文章文件。请从首页选择一篇文章。</p>';
+        return;
+      }
+
+      // 安全检查：只允许访问 static/md/ 下的文件，防止路径遍历
+      if (fileName.indexOf('..') !== -1 || fileName.indexOf('/') !== -1 || fileName.indexOf('\\') !== -1) {
+        document.getElementById('md').innerHTML = '<p>无效的文件路径。</p>';
+        return;
+      }
+
+      var filePath = './static/md/' + fileName;
+      var ext = fileName.split('.').pop().toLowerCase();
+
+      // 显示文件信息
+      var badge = document.getElementById('file-info');
+      badge.textContent = fileName + ' (' + ext.toUpperCase() + ')';
+
+      // 设置页面标题
+      document.title = fileName + ' - 一氯氢化物的博客';
+
+      // 使用 XMLHttpRequest 替代 fetch，兼容 file:// 协议（本地打开）
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', filePath, true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState !== 4) return;
+
+        // status === 0 表示 file:// 协议下的成功响应
+        if (xhr.status === 200 || xhr.status === 0) {
+          var content = xhr.responseText;
+
+          if (!content) {
+            document.getElementById('md').innerHTML = '<p>文件内容为空或无法读取。</p>';
+            return;
+          }
+
+          if (ext === 'mdx') {
+            // MDX 处理：移除 import/export 语句和 JSX 组件标签
+            content = content
+              .replace(/^import\s+.*$/gm, '')
+              .replace(/^export\s+default\s+.*$/gm, '')
+              .replace(/^export\s+.*$/gm, '')
+              .replace(/<([A-Z][A-Za-z0-9]*)\s*([^>]*?)\/>/g, function(match, tag, attrs) {
+                return '> **[组件: ' + tag + ']** ' + attrs.trim();
+              })
+              .replace(/<([A-Z][A-Za-z0-9]*)\s*([^>]*)>([\s\S]*?)<\/\1>/g, function(match, tag, attrs, inner) {
+                return '> **[' + tag + ']**\n>\n> ' + inner.trim().replace(/\n/g, '\n> ');
+              });
+          }
+
+          document.getElementById('md').innerHTML = marked.parse(content);
+        } else {
+          document.getElementById('md').innerHTML = '<p>抱歉，内容加载失败。</p><pre>HTTP ' + xhr.status + '</pre>';
+        }
+      };
+      xhr.onerror = function() {
+        document.getElementById('md').innerHTML = '<p>抱歉，内容加载失败。请确认文件存在。</p>';
+      };
+      xhr.send();
+    })();
   </script>
 </body>
 </html>

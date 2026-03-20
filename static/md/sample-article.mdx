@@ -1,0 +1,60 @@
+---
+title: MDX 示例文章
+description: 一篇 MDX 格式的示例博文，展示 MDX 的组件嵌入能力
+date: 2026-03-21
+---
+
+import { Callout } from './components/Callout'
+import CodeBlock from './components/CodeBlock'
+
+# MDX 示例文章
+
+这是一篇 **MDX** 格式的示例博文。MDX 允许在 Markdown 中嵌入 JSX 组件。
+
+## 什么是 MDX？
+
+MDX 是 Markdown 的扩展格式，它允许你在文档中使用 **React 组件**。
+这使得技术文档和博客文章更加灵活和交互。
+
+<Callout type="info">
+这是一个 MDX 组件示例。在静态渲染时，它会被转换为引用块显示。
+</Callout>
+
+## 代码示例
+
+下面是一段 Python 代码：
+
+```python
+def fibonacci(n):
+    """生成斐波那契数列"""
+    a, b = 0, 1
+    result = []
+    for _ in range(n):
+        result.append(a)
+        a, b = b, a + b
+    return result
+
+print(fibonacci(10))
+# 输出: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+```
+
+<CodeBlock language="bash" title="安装依赖" />
+
+## MDX 的优势
+
+- 📝 完全兼容标准 Markdown 语法
+- ⚛️ 支持嵌入 JSX 组件
+- 🔧 可以导入和使用自定义组件
+- 📦 支持 `import` / `export` 语法
+
+## 数学与科学
+
+爱因斯坦的质能方程：**E = mc²**
+
+这个公式告诉我们，能量（E）等于质量（m）乘以光速（c）的平方。
+
+> 想象力比知识更重要。知识是有限的，而想象力概括着世界的一切。 —— 爱因斯坦
+
+---
+
+*感谢阅读！这篇文章存储为 `.mdx` 格式，展示了 MDX 的组件嵌入能力。*

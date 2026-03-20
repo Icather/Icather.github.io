@@ -1,15 +1,5 @@
 // 优化后的JavaScript代码，减少移动端性能消耗
 
-var CONTENT_TOGGLE = {
-    // 总开关：控制整块显示/隐藏
-    showSites: true,
-    showNotes: true,
-    // 细粒度：按选择器隐藏具体卡片
-    hideSelectors: [
-        'a.projectItem[href*="doc=note-2"]' // 隐藏“学习笔记二”
-    ]
-};
-
 document.addEventListener('contextmenu', function (event) {
     event.preventDefault();
 });
@@ -116,35 +106,202 @@ document.addEventListener('DOMContentLoaded', function () {
 
     changeTheme(themeState);
 
-    // 应用内容显示/隐藏的开关
-    (function applyContentToggle(){
-        // 整块隐藏：sites
-        if (!CONTENT_TOGGLE.showSites) {
-            var sTitle = document.getElementById('title-sites');
-            var sList = document.getElementById('section-sites');
-            if (sTitle) sTitle.style.display = 'none';
-            if (sList) sList.style.display = 'none';
-        }
-        // 整块隐藏：notes
-        if (!CONTENT_TOGGLE.showNotes) {
-            var nTitle = document.getElementById('title-notes');
-            var nList = document.getElementById('section-notes');
-            if (nTitle) nTitle.style.display = 'none';
-            if (nList) nList.style.display = 'none';
-        }
-        // 隐藏指定项
-        CONTENT_TOGGLE.hideSelectors.forEach(function(sel){
-            var nodes = document.querySelectorAll(sel);
-            nodes.forEach(function(node){ node.style.display = 'none'; });
+    // 导航标签切换
+    var navTabs = document.querySelectorAll('.nav-tab');
+    var tabPanes = document.querySelectorAll('.tab-pane');
+
+    navTabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+            var targetTab = this.getAttribute('data-tab');
+
+            navTabs.forEach(function (t) {
+                t.classList.remove('active');
+            });
+            tabPanes.forEach(function (pane) {
+                pane.classList.remove('active');
+            });
+
+            this.classList.add('active');
+            var targetPane = document.getElementById('tab-' + targetTab);
+            if (targetPane) {
+                targetPane.classList.add('active');
+            }
         });
-    })();
+    });
+
+    // 自动加载文章列表
+    loadArticleList();
 });
 
 
-var pageLoading = document.querySelector("#zyyo-loading");
+var pageLoading = document.querySelector("#page-loading");
 window.addEventListener('load', function() {
     setTimeout(function () {
         pageLoading.style.opacity = '0';
     }, 100);
 });
 
+
+// ===== 工具函数 =====
+function parseFrontmatter(text) {
+    var match = text.match(/^---\s*\n([\s\S]*?)\n---\s*\n/);
+    if (!match) return {};
+    var meta = {};
+    match[1].split('\n').forEach(function(line) {
+        var idx = line.indexOf(':');
+        if (idx > 0) {
+            meta[line.substring(0, idx).trim()] = line.substring(idx + 1).trim();
+        }
+    });
+    return meta;
+}
+
+function stripFrontmatter(text) {
+    return text.replace(/^---\s*\n[\s\S]*?\n---\s*\n/, '');
+}
+
+function formatChineseDate(dateStr) {
+    if (!dateStr) return '';
+    var parts = dateStr.split('-');
+    if (parts.length < 2) return dateStr;
+    var year = parts[0];
+    var month = parseInt(parts[1], 10);
+    var chineseMonths = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'];
+    var monthStr = chineseMonths[month - 1] || month;
+    return year + '年' + monthStr + '月';
+}
+
+function fetchFile(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState !== 4) return;
+        if (xhr.status === 200 || xhr.status === 0) {
+            callback(null, xhr.responseText);
+        } else {
+            callback('HTTP ' + xhr.status, null);
+        }
+    };
+    xhr.onerror = function() { callback('Network error', null); };
+    xhr.send();
+}
+
+
+// ===== 动态文章列表 =====
+function loadArticleList() {
+    var listEl = document.getElementById('article-list');
+    if (!listEl) return;
+
+    fetchFile('./static/md/articles.json', function(err, data) {
+        if (err) {
+            listEl.innerHTML = '<p class="article-loading">文章列表加载失败。</p>';
+            return;
+        }
+
+        var fileNames;
+        try { fileNames = JSON.parse(data); } catch(e) {
+            listEl.innerHTML = '<p class="article-loading">文章列表解析失败。</p>';
+            return;
+        }
+
+        var articles = [];
+        var loaded = 0;
+        var total = fileNames.length;
+
+        if (total === 0) {
+            listEl.innerHTML = '<p class="article-loading">暂无文章。</p>';
+            return;
+        }
+
+        fileNames.forEach(function(fileName) {
+            fetchFile('./static/md/' + fileName, function(err2, content) {
+                loaded++;
+                if (!err2 && content) {
+                    var meta = parseFrontmatter(content);
+                    articles.push({
+                        file: fileName,
+                        title: meta.title || fileName.replace(/\.(md|mdx)$/, ''),
+                        date: meta.date || '',
+                        description: meta.description || ''
+                    });
+                }
+                if (loaded === total) {
+                    // 按日期倒序排列
+                    articles.sort(function(a, b) {
+                        return (b.date || '').localeCompare(a.date || '');
+                    });
+                    renderArticleList(listEl, articles);
+                }
+            });
+        });
+    });
+}
+
+function renderArticleList(container, articles) {
+    var html = '<div class="blog-list">';
+    articles.forEach(function(a) {
+        var dateDisplay = formatChineseDate(a.date);
+        html += '<div class="blog-list-item" onclick="loadArticle(\'' +
+            a.file.replace(/'/g, "\\'") + '\', \'' +
+            a.title.replace(/'/g, "\\'") + '\')">' +
+            '<div class="blog-list-title">' + a.title + '</div>' +
+            (dateDisplay ? '<div class="blog-list-date">' + dateDisplay + '</div>' : '') +
+            '</div>';
+    });
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+
+// ===== 文章内嵌阅读器 =====
+function loadArticle(fileName, title) {
+    var articleList = document.getElementById('article-list');
+    var articleReader = document.getElementById('article-reader');
+    var articleContent = document.getElementById('article-content');
+    var articleBadge = document.getElementById('article-badge');
+
+    var filePath = './static/md/' + fileName;
+    var ext = fileName.split('.').pop().toLowerCase();
+
+    articleList.style.display = 'none';
+    articleReader.style.display = 'block';
+    articleContent.innerHTML = '加载中…';
+    articleBadge.textContent = fileName + ' (' + ext.toUpperCase() + ')';
+
+    // 设置独立页面链接
+    var permalink = document.getElementById('article-permalink');
+    if (permalink) {
+        permalink.href = './notes.html?file=' + encodeURIComponent(fileName);
+    }
+
+    fetchFile(filePath, function(err, content) {
+        if (err || !content) {
+            articleContent.innerHTML = '<p>内容加载失败。本地预览请使用 start-server.bat。</p>';
+            return;
+        }
+
+        content = stripFrontmatter(content);
+
+        if (ext === 'mdx') {
+            content = content
+                .replace(/^import\s+.*$/gm, '')
+                .replace(/^export\s+default\s+.*$/gm, '')
+                .replace(/^export\s+.*$/gm, '')
+                .replace(/<([A-Z][A-Za-z0-9]*)\s*([^>]*?)\/>/g, function(match, tag, attrs) {
+                    return '> **[组件: ' + tag + ']** ' + attrs.trim();
+                })
+                .replace(/<([A-Z][A-Za-z0-9]*)\s*([^>]*)>([\s\S]*?)<\/\1>/g, function(match, tag, attrs, inner) {
+                    return '> **[' + tag + ']**\n>\n> ' + inner.trim().replace(/\n/g, '\n> ');
+                });
+        }
+
+        articleContent.innerHTML = marked.parse(content);
+    });
+}
+
+function closeArticle() {
+    var articleList = document.getElementById('article-list');
+    var articleReader = document.getElementById('article-reader');
+    articleReader.style.display = 'none';
+    articleList.style.display = 'block';
+}
