@@ -165,5 +165,8 @@ html {
     --back_filter: 0px;
     --back_filter_color: rgba(0, 0, 0, 0.05);
     --fill:#333333;
+    --nav_tab_hover: rgba(0, 0, 0, 0.04);
+    --nav_tab_active_bg: rgba(0, 0, 0, 0.06);
+    --divider_color: rgba(0, 0, 0, 0.08);
 }
 /**/
