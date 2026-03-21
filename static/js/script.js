@@ -190,6 +190,8 @@ function fetchFile(url, callback) {
 
 
 // ===== 动态文章列表 =====
+var _allArticles = []; // 缓存所有文章数据
+
 function loadArticleList() {
     var listEl = document.getElementById('article-list');
     if (!listEl) return;
@@ -224,15 +226,17 @@ function loadArticleList() {
                         file: fileName,
                         title: fileName.replace(/\.(md|mdx)$/, ''),
                         date: meta.date || '',
-                        description: meta.description || ''
+                        description: meta.description || '',
+                        categories: meta.categories || '其他'
                     });
                 }
                 if (loaded === total) {
-                    // 按 YAML date 倒序排列（精确到秒）
                     articles.sort(function(a, b) {
                         return (b.date || '').localeCompare(a.date || '');
                     });
+                    _allArticles = articles;
                     renderArticleList(listEl, articles);
+                    initCategoryTabs();
                 }
             });
         });
@@ -253,8 +257,31 @@ function renderArticleList(container, articles) {
             '</div>' +
             '</div>';
     });
+    if (articles.length === 0) {
+        html += '<p class="article-loading">该分类暂无文章。</p>';
+    }
     html += '</div>';
     container.innerHTML = html;
+}
+
+function initCategoryTabs() {
+    var tabs = document.querySelectorAll('.category-tab');
+    var listEl = document.getElementById('article-list');
+    tabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+            tabs.forEach(function(t) { t.classList.remove('active'); });
+            tab.classList.add('active');
+            var cat = tab.getAttribute('data-category');
+            if (cat === 'all') {
+                renderArticleList(listEl, _allArticles);
+            } else {
+                var filtered = _allArticles.filter(function(a) {
+                    return a.categories === cat;
+                });
+                renderArticleList(listEl, filtered);
+            }
+        });
+    });
 }
 
 
