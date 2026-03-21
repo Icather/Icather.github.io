@@ -4,6 +4,9 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>文章 - 一氯氢化物的博客</title>
   <link rel="icon" href="./static/img/logo.jpg" type="image/jpeg" />
   <link rel="stylesheet" href="./static/css/root.css" />
@@ -114,7 +117,7 @@
 
       // 使用 XMLHttpRequest 替代 fetch，兼容 file:// 协议（本地打开）
       var xhr = new XMLHttpRequest();
-      xhr.open('GET', filePath, true);
+      xhr.open('GET', filePath + '?_t=' + Date.now(), true);
       xhr.onreadystatechange = function() {
         if (xhr.readyState !== 4) return;
 
@@ -144,7 +147,8 @@
               });
           }
 
-          document.getElementById('md').innerHTML = marked.parse(content);
+          var articleTitle = '<h1>' + fileName.replace(/\.(md|mdx)$/, '') + '</h1>';
+          document.getElementById('md').innerHTML = articleTitle + marked.parse(content);
         } else {
           document.getElementById('md').innerHTML = '<p>抱歉，内容加载失败。</p><pre>HTTP ' + xhr.status + '</pre>';
         }

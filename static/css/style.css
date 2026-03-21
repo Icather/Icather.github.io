@@ -420,6 +420,51 @@ body {
     background: var(--nav_tab_active_bg, rgba(0, 0, 0, 0.06));
 }
 
+/* ===== 奖项板块 ===== */
+.awards-section {
+    margin-top: 24px;
+}
+
+.awards-group-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--main_text_color);
+    opacity: 0.7;
+    margin: 16px 0 8px 0;
+}
+
+.awards-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.awards-list li {
+    font-size: 14px;
+    color: var(--item_left_text_color);
+    line-height: 1.6;
+    padding: 6px 0 6px 16px;
+    position: relative;
+    border-bottom: 1px solid var(--divider_color, rgba(0, 0, 0, 0.04));
+}
+
+.awards-list li:last-child {
+    border-bottom: none;
+}
+
+.awards-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--main_text_color);
+    opacity: 0.4;
+}
+
+.awards-list li strong {
+    color: var(--main_text_color);
+    font-weight: 600;
+}
+
 .article-reader .markdown-body {
     padding: 28px 32px;
     border-radius: 14px;

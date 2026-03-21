@@ -173,7 +173,9 @@ function formatChineseDate(dateStr) {
 
 function fetchFile(url, callback) {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
+    // 添加时间戳禁用缓存
+    var cacheBuster = url + (url.indexOf('?') > -1 ? '&' : '?') + '_t=' + Date.now();
+    xhr.open('GET', cacheBuster, true);
     xhr.onreadystatechange = function() {
         if (xhr.readyState !== 4) return;
         if (xhr.status === 200 || xhr.status === 0) {
@@ -204,29 +206,29 @@ function loadArticleList() {
             return;
         }
 
-        var articles = [];
-        var loaded = 0;
-        var total = fileNames.length;
-
-        if (total === 0) {
+        if (fileNames.length === 0) {
             listEl.innerHTML = '<p class="article-loading">暂无文章。</p>';
             return;
         }
 
+        var articles = [];
+        var loaded = 0;
+        var total = fileNames.length;
+
         fileNames.forEach(function(fileName) {
-            fetchFile('./static/md/' + fileName, function(err2, content) {
+            fetchFile('./static/md/' + encodeURIComponent(fileName), function(err2, content) {
                 loaded++;
                 if (!err2 && content) {
                     var meta = parseFrontmatter(content);
                     articles.push({
                         file: fileName,
-                        title: meta.title || fileName.replace(/\.(md|mdx)$/, ''),
+                        title: fileName.replace(/\.(md|mdx)$/, ''),
                         date: meta.date || '',
                         description: meta.description || ''
                     });
                 }
                 if (loaded === total) {
-                    // 按日期倒序排列
+                    // 按 YAML date 倒序排列（精确到秒）
                     articles.sort(function(a, b) {
                         return (b.date || '').localeCompare(a.date || '');
                     });
@@ -260,7 +262,7 @@ function loadArticle(fileName, title) {
     var articleContent = document.getElementById('article-content');
     var articleBadge = document.getElementById('article-badge');
 
-    var filePath = './static/md/' + fileName;
+    var filePath = './static/md/' + encodeURIComponent(fileName);
     var ext = fileName.split('.').pop().toLowerCase();
 
     articleList.style.display = 'none';
@@ -295,7 +297,8 @@ function loadArticle(fileName, title) {
                 });
         }
 
-        articleContent.innerHTML = marked.parse(content);
+        var articleTitle = '<h1>' + fileName.replace(/\.(md|mdx)$/, '') + '</h1>';
+        articleContent.innerHTML = articleTitle + marked.parse(content);
     });
 }
 
