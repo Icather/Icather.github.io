@@ -247,7 +247,10 @@ function renderArticleList(container, articles) {
             a.file.replace(/'/g, "\\'") + '\', \'' +
             a.title.replace(/'/g, "\\'") + '\')">' +
             '<div class="blog-list-title">' + a.title + '</div>' +
-            (dateDisplay ? '<div class="blog-list-date">' + dateDisplay + '</div>' : '') +
+            '<div class="blog-list-meta">' +
+            (dateDisplay ? '<span class="blog-list-date">' + dateDisplay + '</span>' : '') +
+            (a.description ? '<span class="blog-list-desc">' + a.description + '</span>' : '') +
+            '</div>' +
             '</div>';
     });
     html += '</div>';
