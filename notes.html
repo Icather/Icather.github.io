@@ -127,6 +127,9 @@
             return;
           }
 
+          // 剥离 YAML frontmatter
+          content = content.replace(/^---[ \t]*[\r\n][\s\S]*?[\r\n]---[ \t]*[\r\n]/, '');
+
           if (ext === 'mdx') {
             // MDX 处理：移除 import/export 语句和 JSX 组件标签
             content = content

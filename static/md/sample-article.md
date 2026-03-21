@@ -1,7 +1,7 @@
 ---
 title: Markdown 示例文章
 description: 一篇标准 Markdown 格式的示例博文
-date: 2026-03-21
+date: 2026-03-21 00:00:00
 ---
 
 # Markdown 示例文章

@@ -144,7 +144,7 @@ window.addEventListener('load', function() {
 
 // ===== 工具函数 =====
 function parseFrontmatter(text) {
-    var match = text.match(/^---\s*\n([\s\S]*?)\n---\s*\n/);
+    var match = text.match(/^---[ \t]*[\r\n]([\s\S]*?)[\r\n]---[ \t]*[\r\n]/);
     if (!match) return {};
     var meta = {};
     match[1].split('\n').forEach(function(line) {
@@ -157,7 +157,7 @@ function parseFrontmatter(text) {
 }
 
 function stripFrontmatter(text) {
-    return text.replace(/^---\s*\n[\s\S]*?\n---\s*\n/, '');
+    return text.replace(/^---[ \t]*[\r\n][\s\S]*?[\r\n]---[ \t]*[\r\n]/, '');
 }
 
 function formatChineseDate(dateStr) {
