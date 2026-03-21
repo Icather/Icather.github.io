@@ -4,7 +4,6 @@ description: 一篇标准 Markdown 格式的示例博文
 date: 2026-03-21 00:00:00
 ---
 
-# Markdown 示例文章
 
 这是一篇标准 **Markdown** 格式的示例博文，用于展示博客的文章渲染效果。
 
