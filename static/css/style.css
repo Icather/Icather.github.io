@@ -22,6 +22,16 @@
     transition: background-color 0.2s ease;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+footer {
+    margin-top: auto;
+}
+
 a:hover,
 a:link,
 a:visited,
@@ -311,6 +321,36 @@ body {
 }
 
 /* ===== 博客文章列表 ===== */
+/* ===== 分类标签 ===== */
+.category-tabs {
+    display: flex;
+    gap: 0;
+    margin-top: -22px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--divider_color, rgba(0, 0, 0, 0.06));
+}
+
+.category-tab {
+    padding: 8px 20px;
+    font-size: 14px;
+    color: var(--item_left_text_color);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    opacity: 0.6;
+}
+
+.category-tab:hover {
+    opacity: 0.85;
+}
+
+.category-tab.active {
+    color: var(--purple_text_color);
+    border-bottom-color: var(--purple_text_color);
+    opacity: 1;
+    font-weight: 600;
+}
+
 .blog-list {
     display: flex;
     flex-direction: column;
