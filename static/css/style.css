@@ -54,7 +54,7 @@ a:focus {
 
 html[data-theme="Dark"] {
     --main_text_color: #fff;
-    --gradient:linear-gradient(120deg, rgb(133, 62, 255), #f76cc6 30%, rgb(255, 255, 255) 60%);
+    --gradient: linear-gradient(120deg, rgb(133, 62, 255), #f76cc6 30%, rgb(255, 255, 255) 60%);
     --purple_text_color: #747bff;
     --text_bg_color: rgb(26, 4, 48);
     --item_bg_color: rgb(19, 20, 24);
@@ -66,7 +66,7 @@ html[data-theme="Dark"] {
     --card_filter: 0px;
     --back_filter: 0px;
     --back_filter_color: #000000;
-    --fill:#ffffff;
+    --fill: #ffffff;
     --nav_tab_hover: rgba(255, 255, 255, 0.08);
     --nav_tab_active_bg: rgba(255, 255, 255, 0.12);
     --divider_color: rgba(255, 255, 255, 0.1);
@@ -94,10 +94,11 @@ body {
 
 /* 移动端性能优化 */
 @media (max-width: 800px) {
-    
+
     body {
         background-attachment: scroll !important;
     }
+
     .switch,
     .projectItem,
     footer,
@@ -105,17 +106,17 @@ body {
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
     }
-    
+
     .tc {
         backdrop-filter: blur(5px) !important;
         -webkit-backdrop-filter: blur(5px) !important;
     }
-    
+
     .projectItem {
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
         border: 1px solid rgba(255, 255, 255, 0.8) !important;
     }
-    
+
     footer {
         padding: 12px 10px;
         box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
@@ -176,10 +177,10 @@ body {
     width: 100%;
     height: 100%;
     background: var(--back_filter_color);
-    backdrop-filter:  blur(var(--back_filter));
+    backdrop-filter: blur(var(--back_filter));
     -webkit-backdrop-filter: blur(var(--back_filter));
     z-index: -99999999;
-   
+
 }
 
 /* ===== 页面主容器 ===== */
@@ -302,6 +303,7 @@ body {
         opacity: 0;
         transform: translateY(8px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -343,6 +345,18 @@ body {
 }
 
 .blog-list-date {
+    font-size: 13px;
+    color: var(--item_left_text_color);
+    opacity: 0.55;
+}
+
+.blog-list-meta {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+}
+
+.blog-list-desc {
     font-size: 13px;
     color: var(--item_left_text_color);
     opacity: 0.55;
@@ -538,13 +552,16 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.5);
 }
-.iconItem i,.iconItem svg{
+
+.iconItem i,
+.iconItem svg {
     width: 22px;
     height: 22px;
-    fill:var(--fill);
+    fill: var(--fill);
     font-size: 22px;
-     margin-right: 3px;
+    margin-right: 3px;
 }
+
 .switch {
     width: 55px;
     height: 43px;
@@ -552,7 +569,8 @@ body {
     border-radius: 10px;
     display: flex;
     margin-left: 10px;
-    backdrop-filter: blur(var(--card_filter));-webkit-backdrop-filter: blur(var(--card_filter));
+    backdrop-filter: blur(var(--card_filter));
+    -webkit-backdrop-filter: blur(var(--card_filter));
     background: var(--item_bg_color);
 
     align-items: center;
@@ -807,7 +825,7 @@ footer {
 /* ===== 弹出层 ===== */
 .tc {
     position: fixed;
-    
+
     display: flex;
     visibility: hidden;
     width: 100vw;
@@ -831,7 +849,7 @@ footer {
 
 .tc-main {
     z-index: 100000;
-    
+
     width: 80%;
     max-width: 300px;
     min-height: 200px;
