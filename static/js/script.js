@@ -90,9 +90,11 @@ function loadArticleList() {
     const listEl = document.getElementById('article-list');
     if (!listEl) return;
 
-    fetch('./static/md/articles.json?_t=' + Date.now())
-        .then(function (res) { return res.json(); })
-        .then(function (articles) {
+    // 使用 fetchFile（兼容 file:// 协议）
+    initCategoryTabs();
+    fetchFile('./static/md/articles.json')
+        .then(function (text) {
+            var articles = JSON.parse(text);
             if (articles.length === 0) {
                 listEl.innerHTML = '<p class="article-loading">暂无文章。</p>';
                 return;
@@ -108,7 +110,6 @@ function loadArticleList() {
                 };
             });
             renderArticleList(listEl, _allArticles);
-            initCategoryTabs();
         })
         .catch(function () {
             listEl.innerHTML = '<p class="article-loading">文章列表加载失败。</p>';
@@ -184,11 +185,7 @@ function loadArticle(fileName, title) {
         permalink.href = './notes.html?file=' + encodeURIComponent(fileName);
     }
 
-    fetch('./static/md/' + encodeURIComponent(fileName) + '?_t=' + Date.now())
-        .then(function (res) {
-            if (!res.ok) throw new Error('HTTP ' + res.status);
-            return res.text();
-        })
+    fetchFile('./static/md/' + encodeURIComponent(fileName))
         .then(function (content) {
             content = stripFrontmatter(content);
             if (ext === 'mdx') {

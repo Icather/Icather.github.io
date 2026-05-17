@@ -73,3 +73,27 @@ function formatChineseDate(dateStr) {
     const monthStr = chineseMonths[month - 1] || month;
     return year + '年' + monthStr + '月';
 }
+
+/**
+ * 兼容 file:// 协议的网络请求（fetch 不支持 file:// 协议）
+ * @param {string} url - 请求地址
+ * @returns {Promise<string>} 响应文本
+ */
+function fetchFile(url) {
+    var cacheBuster = url + (url.indexOf('?') > -1 ? '&' : '?') + '_t=' + Date.now();
+    return new Promise(function (resolve, reject) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', cacheBuster, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState !== 4) return;
+            // status === 0 表示 file:// 协议下的成功响应
+            if (xhr.status === 200 || xhr.status === 0) {
+                resolve(xhr.responseText);
+            } else {
+                reject(new Error('HTTP ' + xhr.status));
+            }
+        };
+        xhr.onerror = function () { reject(new Error('Network error')); };
+        xhr.send();
+    });
+}

@@ -104,12 +104,8 @@
       document.getElementById('file-info').textContent = fileName + ' (' + ext.toUpperCase() + ')';
       document.title = fileName.replace(/\.(md|mdx)$/, '') + ' - 一氯氢化物的博客';
 
-      // 使用 fetch 加载文章（复用 utils.js 中的公共函数）
-      fetch('./static/md/' + encodeURIComponent(fileName) + '?_t=' + Date.now())
-        .then(function(res) {
-          if (!res.ok) throw new Error('HTTP ' + res.status);
-          return res.text();
-        })
+      // 使用 fetchFile 加载文章（兼容 file:// 协议）
+      fetchFile('./static/md/' + encodeURIComponent(fileName))
         .then(function(content) {
           content = stripFrontmatter(content);
           if (ext === 'mdx') {
