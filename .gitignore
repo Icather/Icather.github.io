@@ -1,0 +1,15 @@
+# Editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Agent internals
+.agent/
+
+# Temp
+_meta_dump.json
+*.log

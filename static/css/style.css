@@ -18,7 +18,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    user-select: none;
     transition: background-color 0.2s ease;
 }
 
@@ -246,6 +245,14 @@ body {
     line-height: 1.3;
     letter-spacing: -0.3px;
     color: var(--main_text_color);
+}
+
+.blog-header-tagline {
+    font-size: 14px;
+    color: var(--item_left_text_color);
+    opacity: 0.65;
+    margin-top: 4px;
+    letter-spacing: 0.3px;
 }
 
 .blog-header-card .iconContainer {
@@ -687,7 +694,7 @@ body {
     width: 100%;
 }
 
-.projectItem:hover h1 {
+.projectItem:hover h3 {
     font-size: 18px;
 }
 
@@ -704,7 +711,7 @@ body {
 }
 
 
-.projectItemLeft h1 {
+.projectItemLeft h3 {
     font-weight: 600;
     font-size: 16px;
     margin: 0px 0 6px 0;
@@ -1051,7 +1058,7 @@ footer {
         padding: 12px;
     }
 
-    .projectItemLeft h1 {
+    .projectItemLeft h3 {
         font-size: 16px;
     }
 

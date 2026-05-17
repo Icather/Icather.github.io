@@ -22,8 +22,8 @@
 	<!-- 预加载关键字体 -->
 	<link rel="preload" href="./static/fonts/Ubuntu-Regular.ttf" as="font" type="font/ttf" crossorigin>
 	<link rel="preload" href="./static/fonts/Pacifico-Regular.ttf" as="font" type="font/ttf" crossorigin>
-	<!-- Markdown 渲染 -->
-	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+	<!-- Markdown 渲染（锁定版本） -->
+	<script src="https://cdn.jsdelivr.net/npm/marked@9.1.0/marked.min.js"></script>
 
 </head>
 
@@ -41,6 +41,7 @@
 			<div class="blog-header-avatar" style="background-image: url(./static/img/logo.jpg);"></div>
 			<div class="blog-header-info">
 				<div class="blog-header-title">一氯氢化物的博客</div>
+				<div class="blog-header-tagline">高中生 / 独立开发者 / Android & Web</div>
 				<div class="iconContainer">
 
 					<a class="iconItem" onclick="pop('./static/img/wx.jpg')" href="javascript:void(0)">
@@ -233,25 +234,25 @@
 					<div class="projectList">
 						<a class="projectItem" target="_blank" href="https://github.com/Icather/Project_Necore">
 							<div class="projectItemLeft">
-								<h1>Project_Necore</h1>
+								<h3>Project_Necore</h3>
 								<p>期望：整合大厂api，制作综合型多用途AI助手。</p>
 							</div>
 						</a>
 						<a class="projectItem" target="_blank" href="https://recitation-tool.pages.dev/">
 							<div class="projectItemLeft">
-								<h1>文言文背诵助手</h1>
+								<h3>文言文背诵助手</h3>
 								<p>一款通过间隔挖空实现强化记忆的背诵助手</p>
 							</div>
 						</a>
 						<a class="projectItem" target="_blank" href="https://space.bilibili.com/407733954">
 							<div class="projectItemLeft">
-								<h1>小破站主页</h1>
+								<h3>小破站主页</h3>
 								<p>啥也没有</p>
 							</div>
 						</a>
 						<a class="projectItem" target="_blank" href="https://v.douyin.com/ih84xevm/">
 							<div class="projectItemLeft">
-								<h1>抖音主页</h1>
+								<h3>抖音主页</h3>
 								<p>啥也没有</p>
 							</div>
 						</a>
@@ -269,10 +270,11 @@
 
 	<div class="tc">
 		<div onclick="" class="tc-main">
-			<img class="tc-img" src="" alt="" srcset="">
+			<img class="tc-img" src="" alt="弹窗图片预览">
 		</div>
 	</div>
 </body>
-<script src="./static/js/script.js?v=2"> </script>
+<script src="./static/js/utils.js?v=3"></script>
+<script src="./static/js/script.js?v=3"></script>
 
 </html>
