@@ -8,7 +8,7 @@ Thumbs.db
 desktop.ini
 
 # Agent internals
-.agent/
+.agents/
 
 # Temp
 _meta_dump.json
