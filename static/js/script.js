@@ -90,30 +90,27 @@ function loadArticleList() {
     const listEl = document.getElementById('article-list');
     if (!listEl) return;
 
-    // 使用 fetchFile（兼容 file:// 协议）
+    // 使用全局变量 ARTICLES_DATA 替代 fetchFile（兼容 file:// 协议且消除网络请求）
     initCategoryTabs();
-    fetchFile('./static/md/articles.json')
-        .then(function (text) {
-            var articles = JSON.parse(text);
-            if (articles.length === 0) {
-                listEl.innerHTML = '<p class="article-loading">暂无文章。</p>';
-                return;
-            }
-            // 元数据已内嵌在 JSON 中，直接使用，无需逐个请求文件
-            _allArticles = articles.map(function (a) {
-                return {
-                    file: a.file,
-                    title: a.file.replace(/\.(md|mdx)$/, ''),
-                    date: a.date || '',
-                    description: a.description || '',
-                    categories: a.categories || '其他'
-                };
-            });
-            renderArticleList(listEl, _allArticles);
-        })
-        .catch(function () {
-            listEl.innerHTML = '<p class="article-loading">文章列表加载失败。</p>';
+    if (typeof ARTICLES_DATA !== 'undefined') {
+        if (ARTICLES_DATA.length === 0) {
+            listEl.innerHTML = '<p class="article-loading">暂无文章。</p>';
+            return;
+        }
+        // 元数据已内嵌在 JSON 中，直接使用，无需逐个请求文件
+        _allArticles = ARTICLES_DATA.map(function (a) {
+            return {
+                file: a.file,
+                title: a.file.replace(/\.(md|mdx)$/, ''),
+                date: a.date || '',
+                description: a.description || '',
+                categories: a.categories || '其他'
+            };
         });
+        renderArticleList(listEl, _allArticles);
+    } else {
+        listEl.innerHTML = '<p class="article-loading">文章列表加载失败（ARTICLES_DATA 未定义）。</p>';
+    }
 }
 
 function renderArticleList(container, articles) {

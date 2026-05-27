@@ -17,13 +17,13 @@
 	<!-- 关键CSS优先加载 -->
 	<link rel="stylesheet" href="./static/css/root.css?v=2">
 	<link rel="stylesheet" href="./static/css/style.css?v=2">
-	<!-- GitHub Markdown 样式 -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown.min.css">
+	<!-- GitHub Markdown 样式，非首屏阻塞加载 -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown.min.css" media="print" onload="this.media='all'">
 	<!-- 预加载关键字体 -->
 	<link rel="preload" href="./static/fonts/Ubuntu-Regular.ttf" as="font" type="font/ttf" crossorigin>
 	<link rel="preload" href="./static/fonts/Pacifico-Regular.ttf" as="font" type="font/ttf" crossorigin>
 	<!-- Markdown 渲染（锁定版本） -->
-	<script src="https://cdn.jsdelivr.net/npm/marked@9.1.0/marked.min.js"></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/marked@9.1.0/marked.min.js"></script>
 
 </head>
 
@@ -274,7 +274,8 @@
 		</div>
 	</div>
 </body>
-<script src="./static/js/utils.js?v=3"></script>
-<script src="./static/js/script.js?v=3"></script>
+<script defer src="./static/js/utils.js?v=3"></script>
+<script defer src="./static/md/articles-data.js"></script>
+<script defer src="./static/js/script.js?v=3"></script>
 
 </html>
