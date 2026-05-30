@@ -1,6 +1,6 @@
 @font-face {
     font-family: "b";
-    src: url(../fonts/Ubuntu-Regular.ttf);
+    src: url(../fonts/Ubuntu-Regular.woff2) format('woff2');
     font-display: swap;
     font-weight: normal;
     font-style: normal;
@@ -8,7 +8,7 @@
 
 @font-face {
     font-family: "title";
-    src: url(../fonts/Pacifico-Regular.ttf);
+    src: url(../fonts/Pacifico-Regular.woff2) format('woff2');
     font-display: swap;
     font-weight: normal;
     font-style: normal;
@@ -225,8 +225,7 @@ body {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background-size: cover;
-    background-position: center;
+    object-fit: cover;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
     border: 2px solid rgba(255, 255, 255, 0.7);
 }
@@ -338,7 +337,7 @@ body {
 }
 
 .category-tab {
-    padding: 8px 20px;
+    padding: 12px 20px;
     font-size: 14px;
     color: var(--item_left_text_color);
     cursor: pointer;
