@@ -27,7 +27,7 @@ html {
     --main_bg_color: #F9F9EE;
     --main_text_color: #333333;
     --gradient: linear-gradient(120deg, #bd34fe, #e0321b 30%, #41d1ff 60%);
-    --purple_text_color: #747bff;
+    --purple_text_color: #4f46e5;
     --text_bg_color: rgba(255, 255, 255, 0.9);
     --item_bg_color: rgba(255, 255, 255, 0.95);
     --item_hover_color: rgba(255, 255, 255, 1);

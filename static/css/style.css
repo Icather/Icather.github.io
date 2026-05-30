@@ -393,7 +393,7 @@ body {
 .blog-list-date {
     font-size: 13px;
     color: var(--item_left_text_color);
-    opacity: 0.55;
+    opacity: 0.78;
 }
 
 .blog-list-meta {
