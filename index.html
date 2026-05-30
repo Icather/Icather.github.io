@@ -12,6 +12,9 @@
 	<meta name="description" content="一氯氢化物的个人博客">
 	<meta name="keywords" content="Icather,icather,一氯氢化物,一氯氢化物博客">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- 预连接 Cloudflare Insights 收集端点 -->
+	<link rel="preconnect" href="https://static.cloudflareinsights.com" crossorigin>
+	<link rel="preconnect" href="https://cloudflareinsights.com" crossorigin>
 	<!-- 关键CSS优先加载 -->
 	<link rel="stylesheet" href="./static/css/root.css?v=2">
 	<link rel="stylesheet" href="./static/css/style.css?v=2">
@@ -35,14 +38,14 @@
 	<div class="page-wrapper">
 
 		<!-- 博客头部卡片 -->
-		<div class="blog-header-card">
+		<header class="blog-header-card">
 			<img class="blog-header-avatar" src="./static/img/logo.webp" alt="一氯氢化物的头像" width="80" height="80" fetchpriority="high">
 			<div class="blog-header-info">
 				<div class="blog-header-title">一氯氢化物的博客</div>
 				<div class="blog-header-tagline">高中生 / 独立开发者 / Android & Web</div>
 				<div class="iconContainer">
 
-					<a class="iconItem" onclick="pop('./static/img/wx.jpg')" aria-label="查看微信二维码">
+					<div class="iconItem" onclick="pop('./static/img/wx.jpg')" role="button" aria-label="查看微信二维码">
 						<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
 							clip-rule="evenodd">
 							<path
@@ -50,9 +53,9 @@
 							</path>
 						</svg>
 						<div class="iconTip">WeChat</div>
-					</a>
+					</div>
 
-					<a class="iconItem" onclick="pop('./static/img/qq.jpg')" aria-label="查看QQ二维码">
+					<div class="iconItem" onclick="pop('./static/img/qq.jpg')" role="button" aria-label="查看QQ二维码">
 						<svg t="1712319361023" class="icon" viewBox="0 0 1024 1024" version="1.1"
 							xmlns="http://www.w3.org/2000/svg" p-id="1861">
 							<path
@@ -60,7 +63,7 @@
 								p-id="1862"></path>
 						</svg>
 						<div class="iconTip">QQ</div>
-					</a>
+					</div>
 
 					<a class="iconItem" onclick="" href="mailto:lyym12345678@163.com" aria-label="发送邮件联系我">
 						<svg t="1704870588438" class="icon" viewBox="0 0 1024 1024" version="1.1"
@@ -72,7 +75,7 @@
 						<div class="iconTip">Mail</div>
 					</a>
 
-					<a class="iconItem" onclick="pop('./static/img/wxzsm.webp')" aria-label="查看赞赏二维码">
+					<div class="iconItem" onclick="pop('./static/img/wxzsm.webp')" role="button" aria-label="查看赞赏二维码">
 						<svg t="1705247464964" class="icon" viewBox="0 0 1024 1024" version="1.1"
 							xmlns="http://www.w3.org/2000/svg" p-id="4987">
 							<path
@@ -86,9 +89,9 @@
 								p-id="4990"></path>
 						</svg>
 						<div class="iconTip">施舍</div>
-					</a>
+					</div>
 
-					<a class="switch" aria-label="切换暗色与亮色模式">
+					<div class="switch" role="button" aria-label="切换暗色与亮色模式">
 						<div class="onoffswitch">
 							<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch"
 								checked>
@@ -97,11 +100,11 @@
 								<span class="onoffswitch-switch"></span>
 							</label>
 						</div>
-					</a>
+					</div>
 
 				</div>
 			</div>
-		</div>
+		</header>
 
 		<!-- 一级导航标签 -->
 		<nav class="nav-tabs">
@@ -114,7 +117,7 @@
 		<div class="nav-divider"></div>
 
 		<!-- 内容显示区 -->
-		<div class="tab-content">
+		<main class="tab-content">
 
 			<!-- 文章面板 -->
 			<div class="tab-pane active" id="tab-articles">
@@ -260,7 +263,7 @@
 
 		</div>
 
-	</div>
+		</main>
 
 	<footer>
 		消息随缘回复 |<a href="mailto:lyym12345678@163.com"><span class="purpleText">邮件联系</span></a>

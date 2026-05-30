@@ -275,7 +275,7 @@ body {
     cursor: pointer;
     transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
     color: var(--main_text_color);
-    opacity: 0.6;
+    opacity: 0.82;
     position: relative;
 }
 
@@ -302,7 +302,7 @@ body {
 /* ===== 内容区 ===== */
 .tab-content {
     margin-top: 24px;
-    min-height: 300px;
+    min-height: 380px;
 }
 
 .tab-pane {
@@ -343,7 +343,7 @@ body {
     cursor: pointer;
     border-bottom: 2px solid transparent;
     transition: all 0.2s;
-    opacity: 0.6;
+    opacity: 0.82;
 }
 
 .category-tab:hover {
